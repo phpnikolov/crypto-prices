@@ -1,0 +1,18 @@
+{
+    "name": "Crypto Prices",
+    "version": "1.0.0",
+    "manifest_version": 2,
+    "description": "Real-time cryptocurrency prices, market cap and rankings.",
+    "homepage_url": "https://www.electronic-currency.com/",
+    "browser_action": {
+        "default_title": "Crypto Prices",
+        "default_popup": "app/index.html"
+    },
+    "icons": {
+        "128": "icons/icon128.png",
+        "64": "icons/icon64.png",
+        "48": "icons/icon48.png",
+        "32": "icons/icon32.png",
+        "16": "icons/icon16.png"
+    }
+}

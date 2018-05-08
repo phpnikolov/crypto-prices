@@ -1,0 +1,33 @@
+<div *ngIf="errorMsg" class="alert alert-danger    mt-2 mt-lg-3    ml-2 ml-lg-3    mb-0    mr-2 mr-lg-3" role="alert">
+    <strong>Oh snap!</strong> {{errorMsg}}
+</div>
+
+<div class="thead">
+    <div class="row">
+        <div class="col-5 font-1">
+            Cryptocurrency
+        </div>
+        <div class="col-3 font-1 text-right">
+            Market Cap
+        </div>
+        <div class="col-2 font-1 text-right">
+            Price
+        </div>
+        <div class="col-2 font-1 text-right">
+            24h Change
+        </div>
+    </div>
+</div>
+<div class="tbody">
+    <div class="row" *ngFor="let currency of cryptocurrencies;">
+        <div class="col-5">
+            <span class="coin-rank font-1">{{currency.rank}}</span>
+            <img class="logo" alt="{{currency.name}} logo" class="coin-icon" src="https://s2.coinmarketcap.com/static/img/coins/32x32/{{currency.id}}.png"> {{currency.name}}
+        </div>
+        <div class="col-3 text-right">{{currency.quotes['USD'].market_cap | currency:'USD':true:'1.0-0'}}</div>
+        <div class="col-2 text-right">{{formatPrice(currency.quotes['USD'].price)}}</div>
+        <div class="col-2 text-right" [ngClass]="{'text-danger' : (currency.quotes['USD'].percent_change_24h < 0), 'text-success' : (currency.quotes['USD'].percent_change_24h > 0)}">
+            {{currency.quotes['USD'].percent_change_24h | number:'1.2-2'}}%
+        </div>
+    </div>
+</div>
