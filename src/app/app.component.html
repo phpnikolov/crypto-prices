@@ -7,14 +7,14 @@
         <div class="col-5 font-1">
             Cryptocurrency
         </div>
-        <div class="col-3 font-1 text-right">
-            Market Cap
+        <div class="col-3 font-1 text-right sortable" (click)="changeSort('market_cap')">
+            Market Cap<i [ngClass]="{'sort-asc': sort.type == 'asc', 'sort-desc': sort.type == 'desc'}" *ngIf="sort.column == 'market_cap'"></i>
         </div>
-        <div class="col-2 font-1 text-right">
-            Price
+        <div class="col-2 font-1 text-right sortable" (click)="changeSort('price')">
+            Price<i [ngClass]="{'sort-asc': sort.type == 'asc', 'sort-desc': sort.type == 'desc'}" *ngIf="sort.column == 'price'"></i>
         </div>
-        <div class="col-2 font-1 text-right">
-            24h Change
+        <div class="col-2 font-1 text-right sortable" (click)="changeSort('percent_change_24h')">
+            24h Change<i [ngClass]="{'sort-asc': sort.type == 'asc', 'sort-desc': sort.type == 'desc'}" *ngIf="sort.column == 'percent_change_24h'"></i>
         </div>
     </div>
 </div>
@@ -24,10 +24,10 @@
             <span class="coin-rank font-1">{{currency.rank}}</span>
             <img class="logo" alt="{{currency.name}} logo" class="coin-icon" src="https://s2.coinmarketcap.com/static/img/coins/32x32/{{currency.id}}.png"> {{currency.name}}
         </div>
-        <div class="col-3 text-right">{{currency.quotes['USD'].market_cap | currency:'USD':true:'1.0-0'}}</div>
-        <div class="col-2 text-right">{{formatPrice(currency.quotes['USD'].price)}}</div>
-        <div class="col-2 text-right" [ngClass]="{'text-danger' : (currency.quotes['USD'].percent_change_24h < 0), 'text-success' : (currency.quotes['USD'].percent_change_24h > 0)}">
-            {{currency.quotes['USD'].percent_change_24h | number:'1.2-2'}}%
+        <div class="col-3 text-right">{{currency.market_cap | currency:'USD':true:'1.0-0'}}</div>
+        <div class="col-2 text-right">{{formatPrice(currency.price)}}</div>
+        <div class="col-2 text-right" [ngClass]="{'text-danger' : (currency.percent_change_24h < 0), 'text-success' : (currency.percent_change_24h > 0)}">
+            {{currency.percent_change_24h | number:'1.2-2'}}%
         </div>
     </div>
 </div>
