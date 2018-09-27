@@ -86,3 +86,17 @@
 ::-webkit-scrollbar-corner {
     background: transparent;
 }
+
+#currency-selector {
+    position: fixed;
+    z-index: 100;
+    top: 0;
+    left: 200px;
+    border: 1px solid #e9ecef;
+    border-top: none;
+}
+
+#currency-selector .btn {
+    font-size: 12px !important;
+    border-radius: 0;
+}

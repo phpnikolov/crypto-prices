@@ -1,6 +1,11 @@
 <div *ngIf="errorMsg" class="alert alert-danger    mt-2 mt-lg-3    ml-2 ml-lg-3    mb-0    mr-2 mr-lg-3" role="alert">
     <strong>Oh snap!</strong> {{errorMsg}}
 </div>
+<div class="btn-group btn-group-sm" role="group" id="currency-selector">
+    <button class="btn btn-light" (click)="currency = 'USD'" [ngClass]="{'active' : currency == 'USD'}">USD</button>
+    <button class="btn btn-light" (click)="currency = 'EUR'" [ngClass]="{'active' : currency == 'EUR'}">EUR</button>
+    <button class="btn btn-light" (click)="currency = 'BTC'" [ngClass]="{'active' : currency == 'BTC'}">BTC</button>
+</div>
 
 <div class="thead">
     <div class="row">
@@ -24,10 +29,10 @@
             <span class="coin-rank font-1">{{currency.rank}}</span>
             <img class="logo" alt="{{currency.name}} logo" class="coin-icon" src="https://s2.coinmarketcap.com/static/img/coins/32x32/{{currency.id}}.png"> {{currency.name}}
         </div>
-        <div class="col-3 text-right">{{currency.market_cap | currency:'USD':true:'1.0-0'}}</div>
-        <div class="col-2 text-right">{{formatPrice(currency.price)}}</div>
+        <div class="col-3 text-right">{{formatPrice(currency.market_cap, currency.currency, 0)}}</div>
+        <div class="col-2 text-right">{{formatPrice(currency.price, currency.currency)}}</div>
         <div class="col-2 text-right" [ngClass]="{'text-danger' : (currency.percent_change_24h < 0), 'text-success' : (currency.percent_change_24h > 0)}">
-            {{currency.percent_change_24h | number:'1.2-2'}}%
+            {{currency.percent_change_24h | number:'1.0-0'}}%
         </div>
     </div>
 </div>

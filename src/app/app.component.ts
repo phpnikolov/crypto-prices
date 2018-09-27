@@ -33,7 +33,7 @@ export class AppComponent implements OnInit {
   }
 
   private updateRates(): void {
-    this.data.getTicker().then((response) => {
+    this.data.getTicker(this.currency).then((response) => {
 
       let currencies: Currency[] = [];
       for (let key in response.data) {
@@ -42,9 +42,10 @@ export class AppComponent implements OnInit {
           id: row.id,
           name: row.name,
           rank: row.rank,
-          price: row.quotes['USD'].price,
-          market_cap: row.quotes['USD'].market_cap,
-          percent_change_24h: row.quotes['USD'].percent_change_24h,
+          currency: this.currency,
+          price: row.quotes[this.currency].price,
+          market_cap: row.quotes[this.currency].market_cap,
+          percent_change_24h: parseInt(row.quotes[this.currency].percent_change_24h),
         });
       }
 
@@ -80,7 +81,7 @@ export class AppComponent implements OnInit {
   }
 
 
-  public formatPrice(price: number) {
+  public formatPrice(price: number, currency:string, minDigits:number = 2) {
     let digits = 2;
     if (price < 0.0001) {
       digits = 7;
@@ -98,7 +99,17 @@ export class AppComponent implements OnInit {
       digits = 3;
     }
 
-    return this.cp.transform(price, 'USD', true, '1.2-' + digits);
 
+    return this.cp.transform(price, currency, true, `1.${minDigits}-${digits}`);
+
+  }
+
+  get currency() {
+    return localStorage.getItem('currency') || 'USD';
+  }
+
+  set currency(value: string) {
+    localStorage.setItem('currency', value);
+    this.updateRates();
   }
 }
